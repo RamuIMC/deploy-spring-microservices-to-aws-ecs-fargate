@@ -16,8 +16,6 @@ import com.amazonaws.xray.javax.servlet.AWSXRayServletFilter;
 import com.amazonaws.xray.slf4j.SLF4JSegmentListener;
 import com.amazonaws.xray.strategy.SegmentNamingStrategy;
 import com.amazonaws.xray.strategy.sampling.LocalizedSamplingStrategy;
-
-
 @Configuration
 public class AwsXrayConfig {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AwsXrayConfig.class);
@@ -31,19 +29,6 @@ static {
 		AWSXRay.setGlobalRecorder(builder.build());
 		LOGGER.debug("SUCCESS");
 }
-
-//	@Bean
-//	public RequestInterceptor awsXRayFeignInterceptor() {
-//	    return new RequestInterceptor() {
-//	        @Override
-//	        public void apply(RequestTemplate requestTemplate) {
-//	        	TraceID traceId = AWSXRay.getTraceEntity().getTraceId();
-//	        	String trace = traceId!=null?traceId.toString():null;
-//	            // Add X-Ray tracing headers
-//	            requestTemplate.header("AWS-XRAY-TRACE-ID", trace);
-//	        }
-//	    };
-//	}
 
 
 	@Bean

@@ -34,30 +34,30 @@ public class XRayInspector extends AbstractXRayInterceptor {
 	}
 
 //	@SuppressWarnings("deprecation")
-//	@Override
-//	protected Object processXRayTrace(ProceedingJoinPoint pjp) throws Throwable {
-//		try {
-//            Subsegment subsegment = AWSXRay.beginSubsegment(pjp.getSignature().getDeclaringTypeName() + "." + pjp.getSignature().getName());
-//            LOGGER.trace("Begin aws xray subsegment");
-//            
-//            Optional.ofNullable(subsegment)
-//            		.ifPresent(s->s.setMetadata(generateMetadata(pjp, subsegment)));
-//            
-//            Object result = XRayInterceptorUtils.conditionalProceed(pjp);         
-//            Optional.ofNullable(result)
-//            		.ifPresent(r->{
-//            			Map<String, Object> resultMeta = new HashMap<String, Object>();
-//        	            resultMeta.put(result.getClass().getCanonicalName(), result);
-//        	            subsegment.getMetadata().put("Result", resultMeta);
-//            		});
-//            
-//            return result;
-//        } catch (Exception e) {
-//            AWSXRay.getCurrentSegment().addException(e);
-//            throw e;
-//        } finally {
-//        	LOGGER.trace("Ending aws xray subsegment");
-//            AWSXRay.endSubsegment();
-//        }
-//	}
+	@Override
+	protected Object processXRayTrace(ProceedingJoinPoint pjp) throws Throwable {
+		try {
+            Subsegment subsegment = AWSXRay.beginSubsegment(pjp.getSignature().getDeclaringTypeName() + "." + pjp.getSignature().getName());
+            LOGGER.trace("Begin aws xray subsegment");
+            
+            Optional.ofNullable(subsegment)
+            		.ifPresent(s->s.setMetadata(generateMetadata(pjp, subsegment)));
+            
+            Object result = XRayInterceptorUtils.conditionalProceed(pjp);         
+            Optional.ofNullable(result)
+            		.ifPresent(r->{
+            			Map<String, Object> resultMeta = new HashMap<String, Object>();
+        	            resultMeta.put(result.getClass().getCanonicalName(), result);
+        	            subsegment.getMetadata().put("Result", resultMeta);
+            		});
+            
+            return result;
+        } catch (Exception e) {
+            AWSXRay.getCurrentSegment().addException(e);
+            throw e;
+        } finally {
+        	LOGGER.trace("Ending aws xray subsegment");
+            AWSXRay.endSubsegment();
+        }
+	}
 }

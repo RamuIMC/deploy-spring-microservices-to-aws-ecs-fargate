@@ -51,7 +51,7 @@ public class CurrencyConversionController {
 	public CurrencyConversionBean convertCurrency(@PathVariable String from, @PathVariable String to,
 			@PathVariable BigDecimal quantity, @RequestHeader Map<String, String> headers) {
 		
-			
+		LOGGER.info("REACHED HERE -------------------------");
 		printAllHeaders(headers);
 //		ResponseEntity<CurrencyConversionBean> responseEntity = restTemplate.getForEntity(
 //				currencyExchangeHost + "/api/currency-exchange-microservice/currency-exchange/from/{from}/to/{to}",
